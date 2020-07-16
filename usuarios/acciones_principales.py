@@ -21,7 +21,6 @@ class actions:
         else:
             print("\nYa existe un registro con ese mismo email")
 
-gfsadfgnsdfgnkifsdfg
     def login(self):
         print("\nVamos a loguearte!\n")
 
