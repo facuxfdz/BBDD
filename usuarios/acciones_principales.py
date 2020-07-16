@@ -5,7 +5,7 @@ import getpass
 
 class actions:
 
-    def reg(self):
+    def registro(self):
         print("\nVamos a registrarte!\n")
 
         nombre = input("¿Cual es tu nombre?: ")
