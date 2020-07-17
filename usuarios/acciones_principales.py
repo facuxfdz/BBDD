@@ -1,10 +1,19 @@
 import usuarios.user as modelo
-import notas.acciones
+import notas.acciones as Nota
 import re
 import getpass
 import Enums
 registro = Enums.registro()
 campoUsuario = Enums.campoUsuario()
+
+"""
+    En este modulo se desarrollan las acciones principales REGISTRO, LOGIN y PROXIMAS ACCIONES como metodos de clase
+    estos instancian la clase User() en donde se van a almacenar los datos ingresados por el usuario.
+    Estas clases se utilizarán en otro módulo para que, a través de sus atributos de clase, se ejecuten las diferentes
+    consultas SQL. 
+
+"""
+
 
 class AccionesPrincipales:
 
@@ -17,28 +26,28 @@ class AccionesPrincipales:
         password = input("Introduce tu password: ")
         
         usuario = modelo.User(nombre, apellidos, email, password)
-        registro_bd = usuario.registrar()
+        registro_qr = usuario.registrar()
 
-        if registro_bd[registro.exitoso] >= 1:
-            print(f"Perfecto {registro_bd[registro.usuario].nombre} te has registrado con el email {registro_bd[registro.usuario].email}")
+        if registro_qr[registro.exitoso] >= 1:
+            print(f"Perfecto {registro_qr[registro.usuario].nombre} te has registrado con el email {registro_qr[registro.usuario].email}")
         else:
             print("\nYa existe un registro con ese mismo email")
 
     def login(self):
         print("\nVamos a loguearte!\n")
 
+        #Este bloque de codigo es susceptible a tener errores en la consulta SQL que valida los datos en la BBDD
         try:
             email = input("Introduce tu email: ")
             password = getpass.getpass("Introduce tu password: ")
 
-        
             usuario = modelo.User('', '', email, password)
             login = usuario.identificar()
             
             mujer = False
             hombre = False
-            name = r".*a$"
-            match = re.match(name,login[1])
+            regexName = r".*a$"
+            match = re.match(regexName,login[1])
             if match:
                 mujer = True
             else:
@@ -51,6 +60,7 @@ class AccionesPrincipales:
                 print(f"Bienvenido {login[campoUsuario.nombre]} te has logueado el {login[campoUsuario.fecha]}")
                 self.proximasAcciones(login)
         except Exception as e:
+            print("\nERROR")
             print(type(e).__name__)
             print("Los datos ingresados no son correctos")
 
@@ -68,7 +78,9 @@ class AccionesPrincipales:
                 continue
             else:
                 break
-        do = notas.acciones.Acciones()        
+
+        do = Nota.Acciones()     
+
         if accion == "c":
             do.crear(usuario)
             self.proximasAcciones(usuario)
