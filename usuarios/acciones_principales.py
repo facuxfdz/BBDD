@@ -3,8 +3,10 @@ import notas.acciones as Nota
 import re
 import getpass
 import Enums
-registro = Enums.registro()
+
 campoUsuario = Enums.campoUsuario()
+exitoso, usuarioSelf = (0,1)
+nombre_usuario, emailUsuario, fechaUsuario = (1,3,5)
 
 """
     En este modulo se desarrollan las acciones principales REGISTRO, LOGIN y PROXIMAS ACCIONES como metodos de clase
@@ -13,7 +15,6 @@ campoUsuario = Enums.campoUsuario()
     consultas SQL. 
 
 """
-
 
 class AccionesPrincipales:
 
@@ -28,8 +29,8 @@ class AccionesPrincipales:
         usuario = modelo.User(nombre, apellidos, email, password)
         registro_qr = usuario.registrar()
 
-        if registro_qr[registro.exitoso] >= 1:
-            print(f"Perfecto {registro_qr[registro.usuario].nombre} te has registrado con el email {registro_qr[registro.usuario].email}")
+        if registro_qr[exitoso] >= 1:
+            print(f"Perfecto {registro_qr[usuarioSelf].nombre} te has registrado con el email {registro_qr[usuarioSelf].email}")
         else:
             print("\nYa existe un registro con ese mismo email")
 
@@ -47,17 +48,17 @@ class AccionesPrincipales:
             mujer = False
             hombre = False
             regexName = r".*a$"
-            match = re.match(regexName,login[1])
+            match = re.match(regexName,login[nombre_usuario])
             if match:
                 mujer = True
             else:
                 hombre = True
             
-            if email == login[campoUsuario.email] and mujer:
-                print(f"Bienvenida {login[campoUsuario.nombre]} te has logueado el {login[campoUsuario.fecha]}")
+            if email == login[emailUsuario] and mujer:
+                print(f"Bienvenida {login[nombre_usuario]} te has logueado el {login[fechaUsuario]}")
                 self.proximasAcciones(login)
             elif email == login[3] and hombre:
-                print(f"Bienvenido {login[campoUsuario.nombre]} te has logueado el {login[campoUsuario.fecha]}")
+                print(f"Bienvenido {login[nombre_usuario]} te has logueado el {login[fechaUsuario]}")
                 self.proximasAcciones(login)
         except Exception as e:
             print("\nERROR")
@@ -92,5 +93,5 @@ class AccionesPrincipales:
             do.borrar(usuario)
             self.proximasAcciones(usuario)
         else:
-            print(f"Ok {usuario[campoUsuario.nombre]}! Hasta la proxima :D")
+            print(f"Ok {usuario[nombre_usuario]}! Hasta la proxima :D")
             exit()
