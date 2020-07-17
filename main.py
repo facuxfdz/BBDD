@@ -1,10 +1,7 @@
 """
-    Proyecto Python y MySql:
-    -Abrir asistente
-    -Login o registro
-    -Registro: Creará un usuario en la bbdd
-    -Login: Identifica al usuario y preguntará
-    -Crear nota, mostrar nota, borrar nota
+    En este modulo se hace la invocacion a los metodos de clase que permiten elegir 
+    entre las opciones disponibles del MENU
+    
 """
 from usuarios import acciones_principales as acciones
 

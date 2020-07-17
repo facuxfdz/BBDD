@@ -1,18 +1,14 @@
-import usuarios.user as modelo
-import notas.acciones as Nota
+import usuarios.acciones_principales_qr as modelo
+import notas.acciones_user as Nota
 import re
 import getpass
-import Enums
 
-campoUsuario = Enums.campoUsuario()
 exitoso, usuarioSelf = (0,1)
 nombre_usuario, emailUsuario, fechaUsuario = (1,3,5)
 
 """
-    En este modulo se desarrollan las acciones principales REGISTRO, LOGIN y PROXIMAS ACCIONES como metodos de clase
-    estos instancian la clase User() en donde se van a almacenar los datos ingresados por el usuario.
-    Estas clases se utilizarán en otro módulo para que, a través de sus atributos de clase, se ejecuten las diferentes
-    consultas SQL. 
+    En este modulo se desarrollan las acciones principales REGISTRO(), LOGIN() y PROXIMAS ACCIONES().
+    En estas se instancia la clase User() que recopila los datos necesarios para realizar las consultas SQL.
 
 """
 

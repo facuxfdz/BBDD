@@ -2,6 +2,12 @@ import datetime
 import hashlib
 import usuarios.conexionBBDD as cnx
 
+"""
+    En este modulo, que es el mas "profundo"(antes del login), se desarrollan los modulos
+    encargados de realizar las consultas SQL a la BBDD.
+
+"""
+
 connect = cnx.connect()
 database = connect[0]
 cursor = connect[1]
@@ -16,6 +22,7 @@ class User:
     
     def registrar(self):
         fecha = datetime.datetime.now()
+
         #Cifrando contraseña
         cifrado = hashlib.sha256()
         cifrado.update(self.password.encode('utf8'))
@@ -28,7 +35,7 @@ class User:
             database.commit()
             return [cursor.rowcount, self]
         except:
-            return [0,self]
+            return [0,self] #En caso de que la consulta no se haya generado debido a la imposibilidad de duplicar el registro
 
     def identificar(self):
         sql = "SELECT * FROM usuarios WHERE email = %s AND password = %s"

@@ -1,5 +1,11 @@
 import usuarios.conexionBBDD as cnx
 
+"""
+    En este modulo, que es el mas "profundo"(después del login), se desarrollan los modulos
+    encargados de realizar las consultas SQL a la BBDD.
+
+"""
+
 connect = cnx.connect()
 database = connect[0]
 cursor = connect[1]
