@@ -2,8 +2,11 @@ import usuarios.user as modelo
 import notas.acciones
 import re
 import getpass
+import Enums
+registro = Enums.registro()
+campoUsuario = Enums.campoUsuario()
 
-class actions:
+class AccionesPrincipales:
 
     def registro(self):
         print("\nVamos a registrarte!\n")
@@ -14,10 +17,10 @@ class actions:
         password = input("Introduce tu password: ")
         
         usuario = modelo.User(nombre, apellidos, email, password)
-        registro_bd = usuario.to_reg()
+        registro_bd = usuario.registrar()
 
-        if registro_bd[0] >= 1:
-            print(f"Perfecto {registro_bd[1].nombre} te has registrado con el email {registro_bd[1].email}")
+        if registro_bd[registro.exitoso] >= 1:
+            print(f"Perfecto {registro_bd[registro.usuario].nombre} te has registrado con el email {registro_bd[registro.usuario].email}")
         else:
             print("\nYa existe un registro con ese mismo email")
 
@@ -31,6 +34,7 @@ class actions:
         
             usuario = modelo.User('', '', email, password)
             login = usuario.identificar()
+            
             mujer = False
             hombre = False
             name = r".*a$"
@@ -40,11 +44,11 @@ class actions:
             else:
                 hombre = True
             
-            if email == login[3] and mujer:
-                print(f"Bienvenida {login[1]} te has logueado el {login[5]}")
+            if email == login[campoUsuario.email] and mujer:
+                print(f"Bienvenida {login[campoUsuario.nombre]} te has logueado el {login[campoUsuario.fecha]}")
                 self.proximasAcciones(login)
             elif email == login[3] and hombre:
-                print(f"Bienvenido {login[1]} te has logueado el {login[5]}")
+                print(f"Bienvenido {login[campoUsuario.nombre]} te has logueado el {login[campoUsuario.fecha]}")
                 self.proximasAcciones(login)
         except Exception as e:
             print(type(e).__name__)
@@ -76,5 +80,5 @@ class actions:
             do.borrar(usuario)
             self.proximasAcciones(usuario)
         else:
-            print(f"Ok {usuario[1]}! Hasta la proxima :D")
+            print(f"Ok {usuario[campoUsuario.nombre]}! Hasta la proxima :D")
             exit()

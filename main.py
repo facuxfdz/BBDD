@@ -6,19 +6,19 @@
     -Login: Identifica al usuario y preguntará
     -Crear nota, mostrar nota, borrar nota
 """
-from usuarios import actions
+from usuarios import acciones_principales as acciones
 
 print("""
 MENU:
     -Registro(r)
     -Login(l)
 """)
-do = actions.actions()
+do = acciones.AccionesPrincipales()
 
 while True:
     accion = input("Tipee la accion que desea realizar: ")
     if accion == "r":
-        do.reg()
+        do.registro()
         break
     elif accion == "l":
         do.login()

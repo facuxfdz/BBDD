@@ -14,7 +14,7 @@ class User:
         self.email = email
         self.password = paswd
     
-    def to_reg(self):
+    def registrar(self):
         fecha = datetime.datetime.now()
         #Cifrando contraseña
         cifrado = hashlib.sha256()
